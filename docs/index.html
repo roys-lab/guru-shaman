@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GuruShaman: Mapa de Relaciones Cruzadas Holísticas</title>
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos del Proyecto -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- D3.js v7 CDN -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+  <!-- Background Glows -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Main Container -->
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-text">
+          <h1>GuruShaman</h1>
+          <p>Metamodelo de Correspondencias e Interconexiones Holísticas</p>
+        </div>
+      </div>
+
+      <!-- Header Search Bar with Floating Dropdown List -->
+      <div class="header-search-container">
+        <div class="header-search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="header-system-search" placeholder="Buscar sistema (ej: Tarot, Astrología)..." autocomplete="off">
+          <button id="header-clear-search-btn" style="display:none;">×</button>
+        </div>
+        <div id="header-search-results" class="search-results-dropdown" style="display:none;">
+          <!-- Floating results populated dynamically -->
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <a href="modelo_datos_conceptual.md" class="btn btn-secondary" target="_blank">Documentación</a>
+        <a href="relaciones_cruzadas.md" class="btn btn-secondary" target="_blank">Matriz de Relaciones</a>
+      </div>
+    </header>
+
+    <!-- App Layout -->
+    <div class="app-body">
+      
+      <!-- Left Column: Thermal Switches (Toggles) - Starts Collapsed -->
+      <aside class="sidebar sidebar-left collapsed" id="sidebar-left">
+        <!-- Vertical Settings Gear Toggle Button -->
+        <button id="btn-toggle-left-sidebar" class="sidebar-toggle-btn" title="Abrir/Cerrar Configuración y Filtros">
+          <span class="settings-icon">⚙️</span>
+        </button>
+
+        <div class="sidebar-left-content">
+          <div class="nature-filter-container">
+            <div class="nature-btn-group">
+              <button id="filter-all" class="nature-btn active" title="Mostrar todos los sistemas">Todos</button>
+              <button id="filter-calc" class="nature-btn btn-calc" title="Ver solo sistemas calculados">⚡ Calculados</button>
+              <button id="filter-interp" class="nature-btn btn-interp" title="Ver solo sistemas interpretativos">🔮 Interpretativos</button>
+            </div>
+          </div>
+
+          <div class="toggle-controls">
+            <button id="btn-select-all" class="btn-sm">Activar Todo</button>
+            <button id="btn-deselect-all" class="btn-sm">Apagar Todo</button>
+          </div>
+
+          <div class="toggle-list" id="category-toggles-container">
+            <!-- Populated dynamically by javascript -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Column: D3 Radial Chart -->
+      <main class="chart-container">
+        <!-- Top Info Header -->
+        <div class="center-instructions" id="center-instructions">
+          <p class="instruction-title">Grafo de Relaciones Cruzadas</p>
+          <p class="instruction-desc">Pasa el cursor por encima de un sistema para ver sus correspondencias cruzadas. Haz clic en un sistema para ver su detalle técnico.</p>
+        </div>
+
+        <!-- Top Right Zoom Controls -->
+        <div class="zoom-controls-top-right">
+          <button id="btn-zoom-in" class="zoom-icon-btn" title="Acercar (Zoom In)">
+            <span>🔍+</span>
+          </button>
+          <button id="btn-zoom-out" class="zoom-icon-btn" title="Alejar (Zoom Out)">
+            <span>🔍-</span>
+          </button>
+        </div>
+        
+        <!-- SVG Container -->
+        <div id="chart-canvas">
+          <div id="chart-tooltip" class="tooltip" style="opacity: 0;"></div>
+        </div>
+      </main>
+
+
+      <!-- Right Column: Details Panel -->
+      <aside class="sidebar sidebar-right" id="details-sidebar">
+        
+        <!-- Welcome State (When no system is selected) -->
+        <div id="details-welcome" class="details-content active">
+          <div class="welcome-card simple-welcome">
+            <span class="welcome-icon-sm">🔮</span>
+            <p class="welcome-prompt">Elige un sistema para ver el detalle.</p>
+          </div>
+        </div>
+
+        <!-- Detailed State (Populated dynamically) -->
+        <div id="details-active" class="details-content">
+          <!-- System Title Card -->
+          <div class="system-title-card">
+            <div class="badges-wrapper">
+              <span class="system-category-badge" id="detail-category">Categoría</span>
+              <span class="system-nature-badge" id="detail-nature">Calculado</span>
+            </div>
+            <h2 id="detail-title">Nombre del Sistema</h2>
+          </div>
+
+
+          <!-- 4 Tabs Navigation -->
+          <div class="detail-tabs">
+            <button class="tab-btn active" data-tab="tab-que">Qué</button>
+            <button class="tab-btn" data-tab="tab-como">Cómo</button>
+            <button class="tab-btn" data-tab="tab-relaciones">Relaciones</button>
+            <button class="tab-btn" data-tab="tab-variables">Variables</button>
+          </div>
+
+          <!-- Tab 1: Qué -->
+          <div class="tab-pane active" id="tab-que">
+            <div class="detail-section">
+              <h4>📖 Descripción General</h4>
+              <p class="system-desc" id="detail-desc">Descripción...</p>
+            </div>
+            <div class="doc-link-container">
+              <a id="detail-doc-link" href="#" target="_blank" class="btn-doc-link">
+                📄 Ver Documentación del Modelo (.md) ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Tab 2: Cómo -->
+          <div class="tab-pane" id="tab-como">
+            <div class="detail-section">
+              <h4>📥 Parámetros de Entrada (Inputs)</h4>
+              <div class="inputs-grid" id="detail-inputs">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <div class="detail-section" style="margin-top: 14px;">
+              <h4>⚙️ Automatización y Modelos Open Source</h4>
+              <div class="automation-card" id="detail-automation">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Relaciones -->
+          <div class="tab-pane" id="tab-relaciones">
+            <div class="detail-section">
+              <h4>🔗 Relaciones Cruzadas Activas</h4>
+              <div class="connections-list" id="detail-connections">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 4: Variables -->
+          <div class="tab-pane" id="tab-variables">
+            <div class="detail-section">
+              <h4>📤 Variables Calculadas (Outputs)</h4>
+              <div class="outputs-list" id="detail-outputs">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </aside>
+
+
+    </div>
+  </div>
+
+  <!-- Script Principal de la Aplicación -->
+  <script src="app.js"></script>
+</body>
+</html>

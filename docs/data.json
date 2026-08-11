@@ -1,0 +1,1628 @@
+[
+  {
+    "name": "systems.Astral & Calendarios.Astrología Occidental",
+    "displayName": "Astrología Occidental",
+    "id": "AO",
+    "category": "Astral & Calendarios",
+    "docPath": "systems/01_astrologia_occidental.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "pyswisseph (binding de Python para Swiss Ephemeris C-library), flatlib, astropy, kstars, y LLM Open Source (Llama-3 / Qwen-2.5 / DeepSeek-R1) para la generación de reportes interpretativos",
+    "description": "La Astrología Occidental es un sistema milenario de interpretación arquetípica basado en la premisa geométrica y simbólica de \"como es arriba, es abajo\" (Hermetismo). Tiene sus raíces en las tradiciones babilónica, egipcia y helenística, consolidándose en el Tetrabiblos de Claudio Ptolomeo en el siglo II d.C. Mapea la posición de los cuerpos celestes desde la perspectiva geocéntrica del plano de la eclíptica al momento exacto del nacimiento del individuo para reflejar su estructura psíquica y ciclos de desarrollo.",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      },
+      {
+        "name": "hora_nacimiento",
+        "description": "Hora y minutos exactos, ajustados al huso horario UTC/GMT)."
+      },
+      {
+        "name": "coordenadas_nacimiento",
+        "description": "Latitud y Longitud del lugar geográfico de nacimiento, utilizado para calcular el sistema de casas)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "planeta_posicion",
+        "type": "Compuesto (Planeta + Signo + Grado)",
+        "description": "La posición celeste de un arquetipo energético activo. Representa las distintas partes del yo (ej. Luna = emociones, Mercurio = mente)."
+      },
+      {
+        "name": "casa_cuspide",
+        "type": "Compuesto (Casa + Signo + Grado)",
+        "description": "Las cúspides que marcan las 12 áreas de la experiencia vital. La cúspide de la Casa I es el Ascendente (ascendente)."
+      },
+      {
+        "name": "ascendente (AC)",
+        "type": "Cualitativo",
+        "description": "El signo que ascendía por el horizonte oriental al momento de nacer. Representa la interfaz de la personalidad y cómo se percibe el entorno."
+      },
+      {
+        "name": "medio_cielo (MC)",
+        "type": "Cualitativo",
+        "description": "El punto más alto de la eclíptica visible. Representa la vocación, estatus social y metas de vida."
+      },
+      {
+        "name": "aspecto",
+        "type": "Compuesto (Planeta A + Planeta B + Tipo)",
+        "description": "La relación geométrica angular entre dos planetas que indica cómo cooperan o entran en tensión sus arquetipos."
+      },
+      {
+        "name": "elemento_balance",
+        "type": "Cuantitativo (Conteo/Proporción)",
+        "description": "La distribución cuantitativa de planetas personales en cada uno de los cuatro elementos de la naturaleza."
+      }
+    ],
+    "imports": [
+      "systems.Síntesis & Estructuras.Diseño Humano",
+      "systems.Cuerpo & Energía.Sistema de Chakras",
+      "systems.Simbólico & Oracular.Tarot",
+      "systems.Cuerpo & Energía.Quiromancia",
+      "systems.Mente & Psique.Antroposofía",
+      "systems.Mente & Psique.Teosofía",
+      "systems.Mente & Psique.Flores de Bach"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Diseño Humano",
+        "label": "Calcula activaciones"
+      },
+      {
+        "type": "outgoing",
+        "system": "Sistema de Chakras",
+        "label": "Planetas rigen"
+      },
+      {
+        "type": "outgoing",
+        "system": "Tarot",
+        "label": "Signos/Planetas rigen"
+      },
+      {
+        "type": "outgoing",
+        "system": "Quiromancia",
+        "label": "Regencia de montes"
+      },
+      {
+        "type": "outgoing",
+        "system": "Antroposofía",
+        "label": "Ciclos planetarios"
+      },
+      {
+        "type": "outgoing",
+        "system": "Teosofía",
+        "label": "Transmisores de rayos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Flores de Bach",
+        "label": "12 Curadores"
+      },
+      {
+        "type": "incoming",
+        "system": "Astrología Kabbalística",
+        "label": "Meses hebreos = Signos del zodiaco"
+      },
+      {
+        "type": "incoming",
+        "system": "Horóscopo Celta",
+        "label": "Meses celtas = Signos del zodiaco"
+      },
+      {
+        "type": "incoming",
+        "system": "Geometría Sagrada",
+        "label": "Geometría de aspectos celestes"
+      }
+    ]
+  },
+  {
+    "name": "systems.Síntesis & Estructuras.Diseño Humano",
+    "displayName": "Diseño Humano",
+    "id": "DH",
+    "category": "Síntesis & Estructuras",
+    "docPath": "systems/02_diseno_humano.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "pyswisseph (cálculo astronómico de posiciones inconscientes), mmaia (Rave BodyGraph engine), scripts de definición de centros en Python/Node.js y LLMs Open Source para síntesis narrativa",
+    "description": "El Diseño Humano es un sistema de síntesis moderno canalizado y formulado por Alan Robert Krakower (bajo el pseudónimo de Ra Uru Hu) en 1987. Combina elementos de cuatro sistemas tradicionales (Astrología Occidental, el I Ching chino, la Cábala y el sistema hindú de Chakras) junto con la física cuántica moderna (en especial el papel de los neutrinos). Mapea un \"BodyGraph\" de 9 centros energéticos a partir de dos conjuntos de posiciones planetarias: la personalidad física (nacimiento consciente) y el diseño inconsciente (calculado 88 grados de arco solar antes del nacimiento, aproximadamente 3 meses antes).",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      },
+      {
+        "name": "hora_nacimiento",
+        "description": "Hora y minutos exactos en huso horario UTC/GMT)."
+      },
+      {
+        "name": "coordenadas_nacimiento",
+        "description": "Latitud y Longitud del lugar de nacimiento)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "tipo_personalidad",
+        "type": "Cualitativo",
+        "description": "La estructura general de la aura y el rol arquetípico en el flujo de energía vital."
+      },
+      {
+        "name": "autoridad",
+        "type": "Cualitativo",
+        "description": "El centro del cuerpo que debe tomar las decisiones correctas en lugar de la mente lógica."
+      },
+      {
+        "name": "estrategia",
+        "type": "Cualitativo",
+        "description": "El método mecánico de interacción con el entorno para evitar la resistencia en la vida."
+      },
+      {
+        "name": "perfil",
+        "type": "Cualitativo / Compuesto",
+        "description": "El \"traje\" o rol social y arquetípico que el alma representa en esta vida."
+      },
+      {
+        "name": "centro_definicion",
+        "type": "Booleano (por centro)",
+        "description": "Indica si el centro procesa energía de manera consistente y autónoma (Definido) o si absorbe y amplifica del entorno (Abierto)."
+      },
+      {
+        "name": "puerta_activacion",
+        "type": "Lista de Booleanos (64 puertas)",
+        "description": "Puntos específicos de flujo de energía dentro de los centros, correspondientes a los 64 hexagramas del I Ching."
+      },
+      {
+        "name": "canal_definido",
+        "type": "Lista de Booleanos (36 canales)",
+        "description": "El flujo continuo de energía entre dos centros que los conecta y define mutuamente."
+      },
+      {
+        "name": "no_ser",
+        "type": "Cualitativo (por centro indefinido)",
+        "description": "La distorsión psicológica y condicionamiento que ocurre cuando nos identificamos con las áreas abiertas de nuestro diseño."
+      },
+      {
+        "name": "cruz_encarnacion",
+        "type": "Cualitativo",
+        "description": "El propósito de vida o misión evolutiva global del individuo."
+      }
+    ],
+    "imports": [
+      "systems.Simbólico & Oracular.I Ching",
+      "systems.Cuerpo & Energía.Sistema de Chakras",
+      "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)"
+    ],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "Calcula activaciones"
+      },
+      {
+        "type": "outgoing",
+        "system": "I Ching",
+        "label": "64 Puertas = 64 Hexagramas"
+      },
+      {
+        "type": "outgoing",
+        "system": "Sistema de Chakras",
+        "label": "9 Centros expanden"
+      },
+      {
+        "type": "outgoing",
+        "system": "Cábala (Árbol de la Vida)",
+        "label": "Centros/Canales = Sephirot/Senderos"
+      },
+      {
+        "type": "incoming",
+        "system": "Astrología Védica (Jyotish)",
+        "label": "Zodiaco sidéreo alternativo"
+      }
+    ]
+  },
+  {
+    "name": "systems.Astral & Calendarios.Astrología China",
+    "displayName": "Astrología China",
+    "id": "AC",
+    "category": "Astral & Calendarios",
+    "docPath": "systems/03_astrologia_china.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "lunar-javascript / lunar-python (librería Open Source de conversión luni-solar y 4 pilares BaZi), bazi-calculator",
+    "description": "La Astrología China es un sistema de adivinación y análisis caracterológico con más de 3000 años de antigüedad. Se rige por el calendario lunisolar y se estructura en torno a la teoría de los Cinco Elementos (Wu Xing), la polaridad del Yin y el Yang, y los 12 animales del zodiaco (Shengxiao). La forma más avanzada del análisis es el BaZi (o \"Cuatro Pilares del Destino\"), que mapea la energía del año, mes, día y hora de nacimiento utilizando combinaciones de los 10 Troncos Celestes y las 12 Ramas Terrestres.",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año). Es fundamental conocer el año lunar, ya que el Año Nuevo Chino varía entre finales de enero y mediados de febrero."
+      },
+      {
+        "name": "hora_nacimiento",
+        "description": "Hora y minutos exactos en huso horario UTC/GMT, ajustados a la hora solar local del lugar de nacimiento)."
+      },
+      {
+        "name": "coordenadas_nacimiento",
+        "description": "Latitud y Longitud, necesarias para calcular con precisión la hora solar verdadera y las transiciones climáticas)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "animal_anual",
+        "type": "Cualitativo",
+        "description": "El animal que rige el año de nacimiento. Representa la cara externa del individuo y su interacción social."
+      },
+      {
+        "name": "elemento_anual",
+        "type": "Cualitativo",
+        "description": "El elemento del año de nacimiento, derivado de los Troncos Celestes. Rige las características del período de vida."
+      },
+      {
+        "name": "polaridad_yinyang",
+        "type": "Cualitativo",
+        "description": "La fuerza energética fundamental del año/pilar."
+      },
+      {
+        "name": "pilar_ano",
+        "type": "Compuesto (Tronco + Rama)",
+        "description": "Representa los ancestros, la infancia y la relación con la sociedad externa."
+      },
+      {
+        "name": "pilar_mes",
+        "type": "Compuesto (Tronco + Rama)",
+        "description": "Representa los padres, el crecimiento y la vida profesional."
+      },
+      {
+        "name": "pilar_dia",
+        "type": "Compuesto (Tronco + Rama)",
+        "description": "El Tronco de este pilar es el Maestro del Día (day_master). Representa al yo esencial, la personalidad nuclear y la relación con la pareja (Rama del día)."
+      },
+      {
+        "name": "pilar_hora",
+        "type": "Compuesto (Tronco + Rama)",
+        "description": "Representa los hijos, los proyectos, la vejez y los deseos profundos inconscientes."
+      },
+      {
+        "name": "maestro_dia (Day Master)",
+        "type": "Compuesto (Tronco + Elemento)",
+        "description": "El núcleo de la personalidad del individuo en la carta BaZi."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "I Ching",
+        "label": "Bagua trigramas = 5 Elementos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Síntesis & Estructuras.Numerología",
+    "displayName": "Numerología",
+    "id": "NU",
+    "category": "Síntesis & Estructuras",
+    "docPath": "systems/04_numerologia.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "Paquetes de Gematría Open Source (gematria npm, pygematria), funciones puras de reducción digital y detección de números maestros (11, 22, 33)",
+    "description": "La Numerología es la disciplina esotérica que estudia la influencia vibracional de los números sobre las personas y acontecimientos. Aunque existen sistemas caldeo (babilonio) y de Cábala (Gematría), el sistema más difundido en Occidente es la Numerología Pitagórica, basada en los postulados atribuidos a Pitágoras de Samos (siglo VI a.C.), quien consideraba que \"todo es número\" y que el universo está construido sobre patrones matemáticos armoniosos. El sistema asigna valores del 1 al 9 a las letras del alfabeto para decodificar el nombre de nacimiento, y reduce la fecha de nacimiento mediante suma recursiva a dígitos simples o Números Maestros (11, 22, 33).",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      },
+      {
+        "name": "nombre_completo",
+        "description": "Texto: Nombre y apellidos completos tal como figuran en el acta de nacimiento original, respetando la grafía exacta)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "sendero_vida (Life Path)",
+        "type": "Cualitativo",
+        "description": "El camino de vida principal del individuo. Se calcula reduciendo el día, el mes y el año de nacimiento por separado, y luego sumando esos tres dígitos."
+      },
+      {
+        "name": "expresion (Destiny / Expression)",
+        "type": "Cualitativo",
+        "description": "Los talentos naturales y capacidades heredadas del individuo. Se calcula sumando el valor numérico de todas las letras del nombre completo."
+      },
+      {
+        "name": "deseo_alma (Soul Urge)",
+        "type": "Cualitativo",
+        "description": "Las motivaciones internas más íntimas y lo que el alma anhela ser. Se calcula sumando únicamente los valores numéricos de las vocales del nombre completo."
+      },
+      {
+        "name": "personalidad (Personality)",
+        "type": "Cualitativo",
+        "description": "La imagen externa, la primera impresión que se da al entorno. Se calcula sumando únicamente los valores numéricos de las consonantes del nombre completo."
+      },
+      {
+        "name": "numero_nacimiento",
+        "type": "Cualitativo",
+        "description": "Representa habilidades específicas y lecciones a desarrollar. Se calcula a partir del día del mes de nacimiento."
+      },
+      {
+        "name": "ano_personal",
+        "type": "Cualitativo",
+        "description": "El ciclo anual de vibración que experimenta el individuo en el año corriente. Se calcula sumando: dia_nacimiento + mes_nacimiento + ano_corriente."
+      }
+    ],
+    "imports": [
+      "systems.Simbólico & Oracular.Tarot",
+      "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Tarot",
+        "label": "Camino de Vida = Arcano Mayor"
+      },
+      {
+        "type": "outgoing",
+        "system": "Cábala (Árbol de la Vida)",
+        "label": "Valores numéricos de letras"
+      },
+      {
+        "type": "incoming",
+        "system": "Psicogenealogía",
+        "label": "Repetición de números kármicos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Simbólico & Oracular.Tarot",
+    "displayName": "Tarot",
+    "id": "TA",
+    "category": "Simbólico & Oracular",
+    "docPath": "systems/05_tarot.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Generador de entropía CSPRNG + RAG vectorial (ChromaDB / Qdrant) indexando los 78 Arcanos + LLMs Open Source (Llama-3.3-70B, Qwen-2.5-72B, DeepSeek-R1)",
+    "description": "El Tarot es un sistema de baraja de 78 cartas utilizado para el análisis psicológico, la introspección y la adivinación. Sus orígenes históricos documentados se remontan al norte de Italia a mediados del siglo XV como un juego de cartas cortesano. No fue hasta finales del siglo XVIII (con Antoine Court de Gébelin) y el siglo XIX (con Eliphas Lévi) que se integró con la cábala, la astrología y el hermetismo. El sistema se compone de 22 Arcanos Mayores (que representan el desarrollo espiritual y las etapas del alma, conocido como el \"Viaje del Loco\") y 56 Arcanos Menores (que representan las circunstancias cotidianas y prácticas).",
+    "inputs": [
+      {
+        "name": "pregunta_consulta",
+        "description": "Texto: La intención o el problema formulado por el consultante)."
+      },
+      {
+        "name": "extraccion_cartas",
+        "description": "Lista de Cartas extraídas de la baraja y su orientación: Derecha o Invertida)."
+      },
+      {
+        "name": "posiciones_tirada",
+        "description": "Esquema de la tirada elegida, ej. Cruz Celta, Tirada de 3 cartas: Pasado/Presente/Futuro)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "carta_arcano_mayor",
+        "type": "Cualitativo",
+        "description": "Representa fuerzas arquetípicas profundas, karmas, lecciones espirituales o grandes hitos psicológicos."
+      },
+      {
+        "name": "carta_arcano_menor",
+        "type": "Cualitativo",
+        "description": "Circunstancias cotidianas, estados mentales transitorios o personas específicas involucradas."
+      },
+      {
+        "name": "palo_arcano_menor",
+        "type": "Cualitativo",
+        "description": "El plano o elemento en el que se manifiesta la situación (Bastos=Fuego/Acción, Copas=Agua/Emociones, Espadas=Aire/Mente, Oros=Tierra/Materia)."
+      },
+      {
+        "name": "orientacion_carta",
+        "type": "Cualitativo",
+        "description": "Modifica la expresión de la carta (Derecha = flujo normal o manifestación externa; Invertida = bloqueo, energía interna, exceso o sombra)."
+      }
+    ],
+    "imports": [
+      "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)",
+      "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)"
+    ],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "Signos/Planetas rigen"
+      },
+      {
+        "type": "outgoing",
+        "system": "Cábala (Árbol de la Vida)",
+        "label": "22 Arcanos = 22 Senderos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Cábala (Árbol de la Vida)",
+        "label": "Arcanos Menores = Sephirot en 4 Mundos"
+      },
+      {
+        "type": "incoming",
+        "system": "Numerología",
+        "label": "Camino de Vida = Arcano Mayor"
+      },
+      {
+        "type": "incoming",
+        "system": "Psicogenealogía",
+        "label": "Proyección de arquetipos familiares"
+      },
+      {
+        "type": "incoming",
+        "system": "Astrología Kabbalística",
+        "label": "Letras hebreas de cartas"
+      }
+    ]
+  },
+  {
+    "name": "systems.Mente & Psique.Eneagrama de la Personalidad",
+    "displayName": "Eneagrama de la Personalidad",
+    "id": "EP",
+    "category": "Mente & Psique",
+    "docPath": "systems/06_eneagrama.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Motor de scoring psicométrico RISO-HUDSON en Python (scikit-learn) + LLMs Open Source (Llama-3, Qwen-2.5) para procesamiento y clasificación de texto libre",
+    "description": "El Eneagrama de la Personalidad es un sistema de clasificación de la personalidad que describe nueve tipos o patrones de comportamiento, motivación y percepción del mundo. Sus raíces geométricas se atribuyen a George Gurdjieff y su \"Cuarto Camino\" a principios del siglo XX, pero la estructura del Eneagrama de la Personalidad tal como la conocemos hoy fue desarrollada por el filósofo boliviano Oscar Ichazo en los años 1950 y 1960 (en la escuela de Arica), y posteriormente adaptada e integrada con la psicología occidental por el psiquiatra chileno Claudio Naranjo a partir de la década de 1970.",
+    "inputs": [
+      {
+        "name": "cuestionario_respuestas",
+        "description": "Lista de puntuaciones o selecciones de tests estandarizados como el RHETI)."
+      },
+      {
+        "name": "observacion_motivacion",
+        "description": "Texto: Descripción autoevaluativa de miedos y deseos nucleares)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "eneatipo_principal",
+        "type": "Cualitativo",
+        "description": "El núcleo de la estructura de la personalidad. Define la motivación y el miedo básico del ego."
+      },
+      {
+        "name": "ala (Wing)",
+        "type": "Cualitativo",
+        "description": "El eneatipo adyacente que matiza y complementa la personalidad básica del eneatipo principal."
+      },
+      {
+        "name": "triada_centro",
+        "type": "Cualitativo",
+        "description": "El centro de procesamiento de la realidad y energía del cuerpo (Instinto/Ira, Emoción/Vergüenza, Pensamiento/Miedo)."
+      },
+      {
+        "name": "linea_integracion",
+        "type": "Cualitativo",
+        "description": "El eneatipo cuyas cualidades positivas se adoptan cuando el individuo está en equilibrio y madurez."
+      },
+      {
+        "name": "linea_desintegracion",
+        "type": "Cualitativo",
+        "description": "El eneatipo cuyas conductas reactivas y de defensa se adoptan en situaciones de gran tensión psicológica."
+      },
+      {
+        "name": "subtipo_instintivo",
+        "type": "Cualitativo",
+        "description": "El instinto biológico dominante que canaliza la pasión del eneatipo principal, generando 27 subtipos en total."
+      }
+    ],
+    "imports": [
+      "systems.Mente & Psique.Flores de Bach",
+      "systems.Mente & Psique.Eneagrama Sufí"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Flores de Bach",
+        "label": "Miedos básicos = Esencias florales"
+      },
+      {
+        "type": "outgoing",
+        "system": "Eneagrama Sufí",
+        "label": "Dinámica de movimientos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)",
+    "displayName": "Cábala (Árbol de la Vida)",
+    "id": "CA",
+    "category": "Síntesis & Estructuras",
+    "docPath": "systems/07_cabala_arbol_vida.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "networkx (modelado de estructuras en grafo en Python), hebrew-gematria, gematria-js (cálculo de senderos activos)",
+    "description": "La Cábala (Qabalah) es la vertiente mística e iniciática del esoterismo judío. Su estructura fundamental, el Árbol de la Vida (Etz Chaim), se documenta de forma escrita a partir de textos medievales clásicos como el Sefer Yetzirah (Libro de la Creación) y el Zohar (Libro del Esplendor) en los siglos XII y XIII d.C. El Árbol de la Vida es un glifo metafísico que consta de 10 emanaciones divinas llamadas Sefirot (esferas) interconectadas por 22 Senderos. Sirve como modelo cosmogónico de la creación del universo físico a partir del Absoluto (Ain Soph) y como mapa evolutivo para el retorno de la conciencia humana a la divinidad.",
+    "inputs": [
+      {
+        "name": "concepto_estudio",
+        "description": "Texto o arquetipo a analizar meditativamente)."
+      },
+      {
+        "name": "fecha_nacimiento",
+        "description": "y nombre_completo (Utilizados para calcular las correspondencias planetarias y las letras hebreas asociadas al sendero natal)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "sefira_activacion",
+        "type": "Lista de Intensidades (1 a 10)",
+        "description": "Esferas de energía divina y estados de conciencia. Representan diferentes aspectos del Ser (ej. Hod = Intelecto/Gloria, Yesod = Subconsciente/Fundamento)."
+      },
+      {
+        "name": "sendero_conexion",
+        "type": "Lista de Booleanos (22 senderos)",
+        "description": "Caminos de transición y aprendizaje que conectan las Sefirot entre sí."
+      },
+      {
+        "name": "letra_hebrea",
+        "type": "Cualitativo",
+        "description": "La clave vibracional asignada a cada sendero según el Sefer Yetzirah."
+      },
+      {
+        "name": "pilar_arbol",
+        "type": "Cualitativo",
+        "description": "Los tres ejes verticales del Árbol de la Vida que representan los polos activo, receptivo y armonizador del cosmos."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Diseño Humano",
+        "label": "Centros/Canales = Sephirot/Senderos"
+      },
+      {
+        "type": "incoming",
+        "system": "Tarot",
+        "label": "22 Arcanos = 22 Senderos"
+      },
+      {
+        "type": "incoming",
+        "system": "Tarot",
+        "label": "Arcanos Menores = Sephirot en 4 Mundos"
+      },
+      {
+        "type": "incoming",
+        "system": "Numerología",
+        "label": "Valores numéricos de letras"
+      },
+      {
+        "type": "incoming",
+        "system": "Astrología Kabbalística",
+        "label": "Letras creadoras = Senderos"
+      },
+      {
+        "type": "incoming",
+        "system": "Geometría Sagrada",
+        "label": "Trazado del Árbol de la Vida"
+      }
+    ]
+  },
+  {
+    "name": "systems.Simbólico & Oracular.I Ching",
+    "displayName": "I Ching",
+    "id": "IC",
+    "category": "Simbólico & Oracular",
+    "docPath": "systems/08_i_ching.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Generador de probabilidades Yijing (iching python package, yijing-js) + RAG sobre los 64 Hexagramas con LLM Open Source (Llama-3, DeepSeek-R1)",
+    "description": "El I Ching es uno de los textos y sistemas cosmológicos más antiguos de la humanidad, originado en China durante la dinastía Zhou (aproximadamente 1000 a.C.). Se basa en la noción taoísta del cambio continuo de la realidad impulsado por el equilibrio del Yin (línea discontinua --) y el Yang (línea continua —). A través del agrupamiento de tres líneas se forman 8 trigramas básicos (Bagua), que al combinarse de a pares producen los 64 hexagramas. El sistema actúa como un oráculo de sabiduría filosófica y psicológica que describe los patrones universales de cambio y cómo actuar de forma correcta ante ellos.",
+    "inputs": [
+      {
+        "name": "pregunta_consulta",
+        "description": "Texto: La situación sobre la que se busca consejo)."
+      },
+      {
+        "name": "tirada_valores",
+        "description": "Lista de 6 números del 6 al 9, correspondientes a las tiradas de monedas o tallos de milenrama generados desde abajo hacia arriba -línea 1 a línea 6-)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "hexagrama_primario",
+        "type": "Cualitativo",
+        "description": "Representa la situación presente y la energía básica que rige el momento de la consulta."
+      },
+      {
+        "name": "linea_mutante",
+        "type": "Lista de Posiciones (1 a 6)",
+        "description": "Puntos específicos de máxima tensión donde la energía está a punto de invertirse, aportando consejos específicos del texto."
+      },
+      {
+        "name": "hexagrama_secundario (Relacionado)",
+        "type": "Cualitativo",
+        "description": "Representa la tendencia futura o la resolución del conflicto una vez ocurra el cambio de energía."
+      },
+      {
+        "name": "trigrama_superior (Cielo)",
+        "type": "Cualitativo",
+        "description": "La fuerza externa o mental del hexagrama."
+      },
+      {
+        "name": "trigrama_inferior (Tierra)",
+        "type": "Cualitativo",
+        "description": "La fuerza interna o física del hexagrama."
+      }
+    ],
+    "imports": [
+      "systems.Astral & Calendarios.Astrología China"
+    ],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Diseño Humano",
+        "label": "64 Puertas = 64 Hexagramas"
+      },
+      {
+        "type": "outgoing",
+        "system": "Astrología China",
+        "label": "Bagua trigramas = 5 Elementos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Cuerpo & Energía.Sistema de Chakras",
+    "displayName": "Sistema de Chakras",
+    "id": "CH",
+    "category": "Cuerpo & Energía",
+    "docPath": "systems/09_chakras.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Motores de cuestionarios ponderados en Python/Node.js + procesamiento de señales biométricas (scipy, numpy) + LLMs Open Source para diagnóstico de bloqueos",
+    "description": "El Sistema de Chakras es un modelo energético del cuerpo sutil originado en las escrituras hindúes del yoga y el tantra (principalmente los Upanishads y textos posteriores como el Shatchakra Nirupana traducido por Arthur Avalon en 1919). Describe ruedas o vórtices de energía a lo largo de la columna vertebral que conectan el cuerpo físico con la mente y el espíritu. Aunque tradicionalmente existen miles de chakras menores, el sistema estándar moderno occidental consta de 7 chakras principales, cada uno asociado con un plexo nervioso, una glándula endocrina, un elemento de la naturaleza, un color y ciertos estados psicológicos y emocionales.",
+    "inputs": [
+      {
+        "name": "sintomas_fisicos_emocionales",
+        "description": "Lista de quejas, bloqueos o dolencias reportadas por el usuario, ej. miedo a expresarse, problemas digestivos)."
+      },
+      {
+        "name": "medicion_vibracional",
+        "description": "Cualitativo: Resultado de radiestesia con péndulo, fotografía Kirlian o tests psicológicos de balance de chakras)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "chakra_estado",
+        "type": "Compuesto (Nombre + Balance)",
+        "description": "El estado energético actual de cada uno de los 7 centros de energía."
+      },
+      {
+        "name": "bija_mantra",
+        "type": "Cualitativo",
+        "description": "El sonido semilla vibracional utilizado para activar y armonizar cada chakra correspondiente."
+      },
+      {
+        "name": "elemento_asociado",
+        "type": "Cualitativo",
+        "description": "La sustancia arquetípica de la naturaleza vinculada al plano de conciencia del chakra."
+      },
+      {
+        "name": "glandula_endocrina",
+        "type": "Cualitativo",
+        "description": "El correlato biológico y glandular del chakra en el cuerpo físico."
+      }
+    ],
+    "imports": [
+      "systems.Mente & Psique.Biodescodificación",
+      "systems.Cuerpo & Energía.Reiki",
+      "systems.Cuerpo & Energía.Alquimia y los Cuatro Elementos"
+    ],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "Planetas rigen"
+      },
+      {
+        "type": "incoming",
+        "system": "Diseño Humano",
+        "label": "9 Centros expanden"
+      },
+      {
+        "type": "outgoing",
+        "system": "Biodescodificación",
+        "label": "Localización de síntomas"
+      },
+      {
+        "type": "outgoing",
+        "system": "Reiki",
+        "label": "Imposición de manos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Alquimia y los Cuatro Elementos",
+        "label": "Ascenso elemental"
+      },
+      {
+        "type": "incoming",
+        "system": "Geometría Sagrada",
+        "label": "Sólidos platónicos = Elementos"
+      },
+      {
+        "type": "incoming",
+        "system": "Astrología Védica (Jyotish)",
+        "label": "Planetas rigen"
+      }
+    ]
+  },
+  {
+    "name": "systems.Astral & Calendarios.Tzolkin Maya",
+    "displayName": "Tzolkin Maya",
+    "id": "TM",
+    "category": "Astral & Calendarios",
+    "docPath": "systems/10_tzolkin_maya.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "Librerías de conversión de calendarios mayas (maya-calendar, tzolkin-calculator) en Python y JavaScript",
+    "description": "El Tzolkin es el calendario sagrado maya de 260 días, utilizado con fines agrícolas, religiosos y de adivinación personal en Mesoamérica. Su estructura matemática entrelaza 20 Sellos Solares (arquetipos de energía cósmica) con 13 Tonos Galácticos (pulsaciones de frecuencia de creación), resultando en 260 combinaciones únicas llamadas Kines. El sistema moderno de interpretación y autoconocimiento (conocido como El Sincronario de 13 Lunas o Ley del Tiempo) fue popularizado por el historiador y artista José Argüelles en 1987 a través de su libro El Factor Maya, unificando la matemática maya con la profecía planetaria para mapear el \"Kin de Nacimiento\" o la firma galáctica de cada persona.",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "kin_destino",
+        "type": "Cuantitativo / Compuesto",
+        "description": "La firma galáctica personal del individuo. Representa la esencia álmica y la frecuencia vibracional de vida."
+      },
+      {
+        "name": "sello_solar",
+        "type": "Cualitativo",
+        "description": "El arquetipo de energía solar asignado al día de nacimiento. Representa la acción o cualidad del alma."
+      },
+      {
+        "name": "tono_galactico",
+        "type": "Cualitativo",
+        "description": "La frecuencia de manifestación y el poder de acción creativa del Kin."
+      },
+      {
+        "name": "familia_terrestre",
+        "type": "Cualitativo",
+        "description": "Agrupación de sellos según su función de anclaje de energía en la Tierra."
+      },
+      {
+        "name": "onda_encantada",
+        "type": "Cualitativo",
+        "description": "El ciclo de 13 días/pasos que determina la misión de vida del individuo y la secuencia temporal en la que nace."
+      }
+    ],
+    "imports": [],
+    "relationships": []
+  },
+  {
+    "name": "systems.Simbólico & Oracular.Runas Nórdicas",
+    "displayName": "Runas Nórdicas",
+    "id": "RU",
+    "category": "Simbólico & Oracular",
+    "docPath": "systems/11_runas.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Extractor de entropía CSPRNG + RAG con poemas rúnicos tradicionales + LLM Open Source (Llama-3, DeepSeek-R1, Qwen-2.5)",
+    "description": "Las Runas Nórdicas son los caracteres del alfabeto Futhark Antiguo, utilizado por los pueblos germánicos y escandinavos desde el siglo II d.C. con fines de escritura, magia y consulta oracular. Su nombre proviene de la raíz germánica run-, que significa \"secreto\" o \"misterio\". Según la mitología nórdica, el dios Odín obtuvo el secreto de las runas sacrificándose colgado del árbol Yggdrasil durante nueve noches. El Futhark Antiguo consta de 24 runas organizadas en tres grupos de ocho, denominados Aetts (familias), cada uno bajo la regencia de deidades nórdicas específicas (Freyja, Heimdall y Tyr).",
+    "inputs": [
+      {
+        "name": "pregunta_consulta",
+        "description": "Texto: El tema o situación sobre el que se indaga)."
+      },
+      {
+        "name": "extraccion_runas",
+        "description": "Lista de runas extraídas y su orientación: Derecha o Invertida -Merkstave-)."
+      },
+      {
+        "name": "tirada_runas",
+        "description": "El esquema elegido, ej. Tirada de las Tres Nornas: Pasado/Presente/Futuro, o la Cruz Rúnica)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "runa_seleccionada",
+        "type": "Cualitativo",
+        "description": "La runa extraída que porta el consejo o la influencia energética predominante."
+      },
+      {
+        "name": "aett_regencia",
+        "type": "Cualitativo",
+        "description": "La familia de runas que rige el plano de la consulta."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Horóscopo Celta",
+        "label": "Letras Ogham = Runas germánicas"
+      }
+    ]
+  },
+  {
+    "name": "systems.Astral & Calendarios.Astrología Védica (Jyotish)",
+    "displayName": "Astrología Védica (Jyotish)",
+    "id": "AV",
+    "category": "Astral & Calendarios",
+    "docPath": "systems/12_astrologia_vedica.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "pyswisseph (Swiss Ephemeris con Ayanamsa Lahiri), jyotish-python, open-jyotish-engine",
+    "description": "La Astrología Védica, conocida como Jyotish (\"ciencia de la luz\"), es el sistema tradicional de astrología de la India, documentado en las escrituras védicas clásicas como el Rigveda y sistematizado por el sabio Maharishi Parashara en el texto fundamental Brihat Parashara Hora Shastra (c. siglo VII d.C.). A diferencia de la astrología occidental (que utiliza el zodiaco tropical basado en las estaciones), el Jyotish utiliza el zodiaco sidéreo (basado en las posiciones astronómicas reales de las constelaciones) y presta especial atención a las 27 mansiones lunares o Nakshatras y a los periodos predictivos planetarios llamados Dashas.",
+    "inputs": [
+      {
+        "name": "ayanamsa",
+        "description": ""
+      },
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      },
+      {
+        "name": "hora_nacimiento",
+        "description": "Hora y minutos exactos, ajustados al huso horario UTC/GMT)."
+      },
+      {
+        "name": "coordenadas_nacimiento",
+        "description": "Latitud y Longitud geográficas de nacimiento)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "ayanamsa",
+        "type": "Cuantitativo",
+        "description": "El factor de corrección necesario para convertir la posición tropical a la sidérea real debido a la precesión de los equinoccios."
+      },
+      {
+        "name": "graha_posicion",
+        "type": "Compuesto",
+        "description": "Las posiciones de los cuerpos celestes y nodos energéticos en el cielo sidéreo."
+      },
+      {
+        "name": "nakshatra",
+        "type": "Cualitativo",
+        "description": "La porción de 13°20' del cielo donde se encuentra la Luna (u otros planetas). Revela el karma y la psicología profunda."
+      },
+      {
+        "name": "lagna (Ascendente)",
+        "type": "Cualitativo",
+        "description": "El signo que ascendía en el horizonte al momento de nacer en la carta base (Carta Rasi o D1)."
+      },
+      {
+        "name": "mahadasha",
+        "type": "Compuesto (Planeta + Período)",
+        "description": "El ciclo de tiempo del destino activo en el momento de la vida del consultante (basado en el sistema Vimshottari Dasha)."
+      }
+    ],
+    "imports": [
+      "systems.Cuerpo & Energía.Sistema de Chakras",
+      "systems.Síntesis & Estructuras.Diseño Humano"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Sistema de Chakras",
+        "label": "Planetas rigen"
+      },
+      {
+        "type": "outgoing",
+        "system": "Diseño Humano",
+        "label": "Zodiaco sidéreo alternativo"
+      }
+    ]
+  },
+  {
+    "name": "systems.Cuerpo & Energía.Alquimia y los Cuatro Elementos",
+    "displayName": "Alquimia y los Cuatro Elementos",
+    "id": "AL",
+    "category": "Cuerpo & Energía",
+    "docPath": "systems/13_alquimia_elementos.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Algoritmos de balance matricial en Python/Node.js + LLMs Open Source para prescripción y síntesis alquímica",
+    "description": "La Alquimia es una antigua tradición filosófica, protocientífica y espiritual practicada a lo largo de Europa, Asia y África del Norte (con raíces profundas en el Egipto helenístico, la Persia islámica y la Grecia clásica). En Occidente, se formalizó con las teorías de Aristóteles sobre los Cuatro Elementos (Tierra, Agua, Aire, Fuego) y se expandió en el Renacimiento con Paracelso, quien introdujo la teoría de los Tres Principios o Tres Primas (Azufre, Mercurio y Sal). Más allá de la transmutación física de metales en oro, la alquimia esotérica u \"operativa espiritual\" (Espagiria) es un sistema que describe el proceso de purificación, transformación y unificación del alma humana.",
+    "inputs": [
+      {
+        "name": "estado_materia",
+        "description": "Cualitativo: Estado de desbalance del consultante, ej. melancolía, estancamiento, inflamación)."
+      },
+      {
+        "name": "reino_naturaleza",
+        "description": "Cualitativo: El material o planta medicinal bajo estudio, ej. Reino Vegetal, Reino Metálico)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "cuatro_elementos",
+        "type": "Cuantitativo (Balance / Proporción)",
+        "description": "Las cualidades primordiales que estructuran la materia y el temperamento psicológico."
+      },
+      {
+        "name": "tres_principios",
+        "type": "Cualitativo / Proporción",
+        "description": "Los tres constituyentes esenciales de cualquier ser u organismo."
+      },
+      {
+        "name": "fase_alquimica",
+        "type": "Cualitativo",
+        "description": "Las etapas del proceso de desarrollo espiritual y transformación psíquica (la Gran Obra o Magnum Opus)."
+      },
+      {
+        "name": "metal_planeta",
+        "type": "Cualitativo",
+        "description": "El metal terrestre y su arquetipo planetario celeste asociado."
+      }
+    ],
+    "imports": [
+      "systems.Cuerpo & Energía.Quiromancia",
+      "systems.Mente & Psique.Antroposofía"
+    ],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Sistema de Chakras",
+        "label": "Ascenso elemental"
+      },
+      {
+        "type": "outgoing",
+        "system": "Quiromancia",
+        "label": "Correspondencia de 4 elementos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Antroposofía",
+        "label": "Sal/Mercurio/Azufre = Pensar/Sentir/Hacer"
+      }
+    ]
+  },
+  {
+    "name": "systems.Mente & Psique.Flores de Bach",
+    "displayName": "Flores de Bach",
+    "id": "FB",
+    "category": "Mente & Psique",
+    "docPath": "systems/14_flores_bach.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Sistema RAG vectorial (ChromaDB, FAISS, Qdrant) indexando las 38 esencias de Edward Bach + LLM Open Source (Llama-3, Qwen-2.5, DeepSeek)",
+    "description": "El sistema de Flores de Bach es una terapia vibracional y holística desarrollada por el patólogo, bacteriólogo y homeópata inglés Dr. Edward Bach entre 1928 y 1935. Bach postulaba que la enfermedad física es el resultado de un desequilibrio emocional o un conflicto entre el Alma y la Personalidad. El sistema consta de 38 remedios florales (elaborados a partir de flores silvestres, arbustos y árboles, excepto uno que es agua de manantial), organizados en 7 grupos emocionales. Su propósito es inundar la personalidad con la vibración virtuosa de la flor para disolver el estado emocional negativo (ej. transmutar el miedo en valor).",
+    "inputs": [
+      {
+        "name": "estado_emocional_actual",
+        "description": "Lista de síntomas o estados psicoemocionales reportados por el usuario, ej. impaciencia, desaliento, miedo a perder el control)."
+      },
+      {
+        "name": "rasgo_personalidad",
+        "description": "Texto o selección: El temperamento básico del individuo frente a situaciones de conflicto)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "grupo_emocional",
+        "type": "Cualitativo",
+        "description": "La categoría general de desequilibrio emocional que padece el consultante."
+      },
+      {
+        "name": "remedio_floral",
+        "type": "Cualitativo",
+        "description": "La esencia floral indicada para corregir el estado emocional específico."
+      },
+      {
+        "name": "formula_mezcla",
+        "type": "Lista de Remedios",
+        "description": "La combinación personalizada de esencias que abordan la complejidad del estado actual."
+      },
+      {
+        "name": "rescue_remedy",
+        "type": "Booleano",
+        "description": "Una combinación fija de 5 flores (Star of Bethlehem, Rock Rose, Clematis, Impatiens, Cherry Plum) para situaciones de shock o emergencia."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "12 Curadores"
+      },
+      {
+        "type": "incoming",
+        "system": "Horóscopo Celta",
+        "label": "Árboles protectores = Materia de elixires"
+      },
+      {
+        "type": "incoming",
+        "system": "Eneagrama de la Personalidad",
+        "label": "Miedos básicos = Esencias florales"
+      }
+    ]
+  },
+  {
+    "name": "systems.Astral & Calendarios.Astrología Kabbalística",
+    "displayName": "Astrología Kabbalística",
+    "id": "AK",
+    "category": "Astral & Calendarios",
+    "docPath": "systems/15_astrologia_kabbalistica.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "pyswisseph + hebrew-calendar (conversión de fechas a meses hebreos) + matriz determinista de regencias de letras hebreas",
+    "description": "La Astrología Kabbalística, o Chajmat HaMazalot (\"ciencia de las constelaciones\"), es un sistema de astrología mística que se origina en las enseñanzas de la Cábala judía, basándose primordialmente en el Sefer Yetzirah (Libro de la Creación) y las enseñanzas posteriores del místico del siglo XVI Isaac Luria (el Ari). A diferencia de la astrología predictiva tradicional, la astrología kabbalística ve los planetas y constelaciones como conductos o filtros de la Luz Divina. Su propósito es ayudar al individuo a identificar su Tikún (corrección del alma) a través del entendimiento del mes hebreo de nacimiento y el poder espiritual de las letras del alfabeto hebreo que crearon dicho mes y su planeta regente.",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      },
+      {
+        "name": "hora_nacimiento",
+        "description": "Hora y minutos exactos, ajustados al huso horario UTC/GMT)."
+      },
+      {
+        "name": "coordenadas_nacimiento",
+        "description": "Latitud y Longitud, necesarias para calcular el Ascendente kabbalístico)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "mes_hebreo",
+        "type": "Cualitativo",
+        "description": "El mes del calendario hebreo de nacimiento que determina la constelación o Mazal del alma."
+      },
+      {
+        "name": "letras_creadoras",
+        "type": "Compuesto (Letra Planeta + Letra Signo)",
+        "description": "Las dos letras hebreas que, según el Sefer Yetzirah, actúan como el código de ADN espiritual que gobierna el mes de nacimiento."
+      },
+      {
+        "name": "tikun (Corrección)",
+        "type": "Cualitativo / Texto",
+        "description": "El karma específico o la \"corrección\" que el alma ha venido a realizar en esta reencarnación."
+      },
+      {
+        "name": "mazal (Signo Kabbalístico)",
+        "type": "Cualitativo",
+        "description": "El canal o constelación a través del cual fluye el flujo de sustento espiritual."
+      }
+    ],
+    "imports": [
+      "systems.Astral & Calendarios.Astrología Occidental",
+      "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)",
+      "systems.Simbólico & Oracular.Tarot"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Astrología Occidental",
+        "label": "Meses hebreos = Signos del zodiaco"
+      },
+      {
+        "type": "outgoing",
+        "system": "Cábala (Árbol de la Vida)",
+        "label": "Letras creadoras = Senderos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Tarot",
+        "label": "Letras hebreas de cartas"
+      }
+    ]
+  },
+  {
+    "name": "systems.Astral & Calendarios.Horóscopo Celta",
+    "displayName": "Horóscopo Celta",
+    "id": "HC",
+    "category": "Astral & Calendarios",
+    "docPath": "systems/16_horoscopo_celta.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "Algoritmo determinista de tabla de búsqueda (lookup table) por rangos de fechas en Python/Node.js",
+    "description": "El Horóscopo Celta o Astrología de los Árboles es un sistema moderno de interpretación caracterológica basado en la espiritualidad de los antiguos druidas celtas. Aunque las prácticas druídicas eran puramente orales, el calendario lunar de árboles fue reconstruido y popularizado en el siglo XX por el poeta e investigador Robert Graves en su obra La Diosa Blanca (1948). El sistema divide el año en 13 meses lunares, asignando a cada mes un árbol sagrado y una letra del alfabeto oghámico (Ogham). Los árboles representan cualidades espirituales y patrones de personalidad alineados con el ciclo vegetativo y la magia de los bosques.",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "Fecha: Día, Mes, Año)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "arbol_celta",
+        "type": "Cualitativo",
+        "description": "El árbol protector asignado al mes lunar de nacimiento. Define el temperamento básico y la lección espiritual."
+      },
+      {
+        "name": "letra_ogham",
+        "type": "Cualitativo",
+        "description": "El glifo protector de la escritura sagrada celta asociado al árbol de nacimiento."
+      },
+      {
+        "name": "ciclo_luna",
+        "type": "Cualitativo",
+        "description": "Modifica la manifestación del arquetipo del árbol según la fase de la luna del mes natal."
+      }
+    ],
+    "imports": [
+      "systems.Astral & Calendarios.Astrología Occidental",
+      "systems.Simbólico & Oracular.Runas Nórdicas",
+      "systems.Mente & Psique.Flores de Bach"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Astrología Occidental",
+        "label": "Meses celtas = Signos del zodiaco"
+      },
+      {
+        "type": "outgoing",
+        "system": "Runas Nórdicas",
+        "label": "Letras Ogham = Runas germánicas"
+      },
+      {
+        "type": "outgoing",
+        "system": "Flores de Bach",
+        "label": "Árboles protectores = Materia de elixires"
+      }
+    ]
+  },
+  {
+    "name": "systems.Síntesis & Estructuras.Geometría Sagrada",
+    "displayName": "Geometría Sagrada",
+    "id": "GS",
+    "category": "Síntesis & Estructuras",
+    "docPath": "systems/17_geometria_sagrada.md",
+    "nature": "Calculado",
+    "selfHostable": "Sí",
+    "openSourceTools": "Librerías de geometría y renderizado 2D/3D (three.js, shapely, numpy, matplotlib, cairo)",
+    "description": "La Geometría Sagrada es la disciplina que estudia los patrones y proporciones geométricas que se repiten de forma constante en la naturaleza, el cosmos y el arte místico. Sus bases se remontan a las escuelas iniciáticas del antiguo Egipto, los pitagóricos de la Grecia clásica (quienes definieron los Sólidos Platónicos) y el arquitecto romano Vitruvio. Considera que las formas geométricas no son meros dibujos, sino las plantillas de creación o \"arquetipos de manifestación de la conciencia\" a partir de las cuales se organiza la materia. El sistema estudia símbolos universales como la Flor de la Vida, el Cubo de Metatrón y la Proporción Áurea (Phi).",
+    "inputs": [
+      {
+        "name": "forma_analizada",
+        "description": "Cualitativo o numérico: Dimensiones, ángulos o el objeto natural bajo estudio, ej. espiral de una concha, proporción de rasgos corporales)."
+      },
+      {
+        "name": "intencion_armonizacion",
+        "description": "Cualitativo: El tipo de frecuencia o balance espacial requerido en un entorno o terapia, ej. protección, expansión, arraigo)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "solido_platonico",
+        "type": "Cualitativo",
+        "description": "Los únicos cinco poliedros regulares tridimensionales cuyas caras son iguales y cuyos ángulos son congruentes. Representan los bloques de construcción del universo físico y los estados de conciencia."
+      },
+      {
+        "name": "proporcion_phi (Áurea)",
+        "type": "Cuantitativo",
+        "description": "La proporción matemática que maximiza la eficiencia energética y la armonía visual de cualquier estructura física."
+      },
+      {
+        "name": "simbolo_matriz",
+        "type": "Cualitativo",
+        "description": "Las formas geométricas complejas superpuestas que representan las fases de creación de la vida y el espacio dimensional."
+      }
+    ],
+    "imports": [
+      "systems.Astral & Calendarios.Astrología Occidental",
+      "systems.Cuerpo & Energía.Sistema de Chakras",
+      "systems.Síntesis & Estructuras.Cábala (Árbol de la Vida)"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Astrología Occidental",
+        "label": "Geometría de aspectos celestes"
+      },
+      {
+        "type": "outgoing",
+        "system": "Sistema de Chakras",
+        "label": "Sólidos platónicos = Elementos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Cábala (Árbol de la Vida)",
+        "label": "Trazado del Árbol de la Vida"
+      }
+    ]
+  },
+  {
+    "name": "systems.Cuerpo & Energía.Quiromancia",
+    "displayName": "Quiromancia",
+    "id": "QC",
+    "category": "Cuerpo & Energía",
+    "docPath": "systems/18_quiromancia.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Computer Vision (MediaPipe Hand Landmarker, YOLOv8-pose, OpenCV) + Vision-Language Models (VLM) Open Source (Qwen2-VL, LLaVA, Florence-2) ejecutados en GPU local",
+    "description": "La Quiromancia es la lectura de las líneas, montes y rasgos morfológicos de la mano con fines de adivinación y análisis caracterológico. Con raíces documentadas en la antigua India (como parte de las escrituras Samudrika Shastra) y practicada en el antiguo Egipto, Persia y Grecia, se expandió por Europa en la Edad Media y el Renacimiento. En el siglo XIX y principios del XX, fue sistematizada por William G. Benham y Casimir d'Arpentigny bajo un enfoque más analítico centrado en la estructura del carácter y las predisposiciones de salud.",
+    "inputs": [
+      {
+        "name": "mano_lectura",
+        "description": "Cualitativo: Activa -mano dominante con la que se escribe, que muestra el libre albedrío y cambios futuros-, o Pasiva -mano no dominante, que muestra talentos y karmas heredados-)."
+      },
+      {
+        "name": "morfologia_mano",
+        "description": "Cualitativo: Forma de la mano, consistencia, flexibilidad, longitud de los dedos respecto a la palma)."
+      },
+      {
+        "name": "patron_lineas",
+        "description": "Lista de trazos: Líneas principales y secundarias observadas)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "tipo_mano_elemento",
+        "type": "Cualitativo",
+        "description": "Describe el temperamento psicofísico fundamental del individuo (coincide con los elementos de la alquimia)."
+      },
+      {
+        "name": "linea_principal",
+        "type": "Compuesto (Nombre + Estado)",
+        "description": "Mapea las áreas centrales de la experiencia humana y el estado de la fuerza vital asociada."
+      },
+      {
+        "name": "monte_planetario",
+        "type": "Compuesto (Monte + Desarrollo)",
+        "description": "Vórtices de energía en la palma de la mano asociados a las cualidades de los arquetipos planetarios."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "Regencia de montes"
+      },
+      {
+        "type": "incoming",
+        "system": "Alquimia y los Cuatro Elementos",
+        "label": "Correspondencia de 4 elementos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Cuerpo & Energía.Fisiognomía (Mian Xiang)",
+    "displayName": "Fisiognomía (Mian Xiang)",
+    "id": "FS",
+    "category": "Cuerpo & Energía",
+    "docPath": "systems/19_fisiognomia.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Facial Landmarks Models Open Source (InsightFace, MediaPipe Face Mesh con 468 puntos faciales, dlib) + VLM Open Source (Qwen2-VL, LLaVA-NeXT) en infraestructura local",
+    "description": "La Fisiognomía, conocida en China como Mian Xiang (\"observación del rostro\"), es una antigua disciplina oriental que analiza las facciones de la cara para discernir la personalidad, la salud física y el destino vital del individuo. Sus orígenes datan del periodo de los Reinos Combatientes (c. 400 a.C.) y fue formalizada durante la dinastía Song por maestros taoístas. Considera que el rostro es un mapa vivo del flujo del Qi (fuerza vital) y que cada imperfección, marca o rasgo óseo revela las lecciones kármicas y la constitución de los 5 elementos en el individuo.",
+    "inputs": [
+      {
+        "name": "fotografia_rostro",
+        "description": "o mapeo_rasgos (Cualitativo/Métrico: Descripción de la forma de las cejas, ojos, nariz, boca, orejas y frentes, junto con la presencia de marcas, lunares o cicatrices)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "tres_regiones_rostro",
+        "type": "Cualitativo / Proporción",
+        "description": "Las tres etapas cronológicas de la vida y el equilibrio entre mente, voluntad e instinto."
+      },
+      {
+        "name": "palacio_facial",
+        "type": "Compuesto (Nombre + Estado)",
+        "description": "Áreas específicas del rostro que revelan la suerte y el estado emocional en diferentes ámbitos de la vida."
+      },
+      {
+        "name": "tipo_rostro_elemento",
+        "type": "Cualitativo",
+        "description": "La energía elemental predominante que gobierna el temperamento de la persona."
+      },
+      {
+        "name": "cien_puntos_edad",
+        "type": "Cuantitativo",
+        "description": "Mapeo que sitúa la edad del consultante en una ubicación facial exacta (ej. orejas = infancia; frente = 20-30 años; nariz = 40-50 años)."
+      }
+    ],
+    "imports": [],
+    "relationships": []
+  },
+  {
+    "name": "systems.Mente & Psique.Biodescodificación",
+    "displayName": "Biodescodificación",
+    "id": "BD",
+    "category": "Mente & Psique",
+    "docPath": "systems/20_biodescodificacion.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Base de datos vectorial (ChromaDB, Qdrant) indexando el Diccionario de Biología y Conflictos Emocionales + RAG con LLM Open Source (Llama-3.3-70B, Qwen-2.5, DeepSeek-R1)",
+    "description": "La Biodescodificación (también conocida como Decodificación Biológica o Bioneuroemoción) es una corriente terapéutica de integración holística formulada a finales del siglo XX por autores como el enfermero francés Christian Flèche, el psicólogo español Enric Corbera y la canadiense Claudia Rainville. Se apoya en los postulados de la Nueva Medicina Germánica del Dr. Ryke Geerd Hamer. El sistema parte de la hipótesis de que toda enfermedad física (síntoma) es un programa biológico de supervivencia activado por el cerebro como respuesta a un bioshock: un conflicto emocional agudo, vivido en soledad, de manera inesperada y sin solución aparente. Su propósito es decodificar el mensaje oculto del síntoma para liberar la emoción reprimida y promover la autocuración.",
+    "inputs": [
+      {
+        "name": "sintoma_fisico",
+        "description": "Texto: Diagnóstico médico exacto del síntoma o enfermedad, ej. hipotiroidismo, eccema en el brazo izquierdo, cálculo renal)."
+      },
+      {
+        "name": "historial_bioshock",
+        "description": "Texto: Descripción de eventos altamente estresantes vividos recientemente o justo antes de la aparición del síntoma)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "capa_embrionaria",
+        "type": "Cualitativo",
+        "description": "La capa embrionaria del tejido afectado que indica el tipo de conflicto arcaico subyacente."
+      },
+      {
+        "name": "sentido_biologico",
+        "type": "Cualitativo / Texto",
+        "description": "La explicación evolutiva y adaptativa de la reacción del cuerpo ante la crisis."
+      },
+      {
+        "name": "conflicto_emocional",
+        "type": "Cualitativo / Texto",
+        "description": "La emoción o creencia específica no procesada que generó el bloqueo energético."
+      },
+      {
+        "name": "fase_enfermedad",
+        "type": "Cualitativo",
+        "description": "El estado del sistema nervioso autónomo respecto a la resolución del conflicto."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Sistema de Chakras",
+        "label": "Localización de síntomas"
+      },
+      {
+        "type": "incoming",
+        "system": "Psicogenealogía",
+        "label": "Trauma transgeneracional = Síntoma"
+      }
+    ]
+  },
+  {
+    "name": "systems.Mente & Psique.Psicogenealogía",
+    "displayName": "Psicogenealogía",
+    "id": "PG",
+    "category": "Mente & Psique",
+    "docPath": "systems/21_psicogenealogia.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Motor de análisis de grafos familiares en Python (networkx) + LLM Open Source para detección de patrones transgeneracionales",
+    "description": "La Psicogenealogía es un enfoque terapéutico holístico e instrumental que analiza el árbol genealógico del individuo para identificar la repetición de traumas, secretos familiares, duelos no resueltos y mandatos inconscientes. Desarrollado en la segunda mitad del siglo XX por terapeutas como la psicodramatista francesa Anne Ancelin Schützenberger (creadora del término síndrome de aniversario) y reformulado creativamente por Alejandro Jodorowsky bajo el nombre de Metagenealogía, este sistema sostiene que los seres humanos cargan con lealtades invisibles transgeneracionales, manifestando en sus propias vidas las asignaturas pendientes de sus ancestros.",
+    "inputs": [
+      {
+        "name": "arbol_genealogico_datos",
+        "description": "Compuesto: Nombres completos, fechas de nacimiento y defunción, causas de muerte, profesiones y eventos traumáticos de padres, abuelos, bisabuelos, tíos y hermanos)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "sindrome_aniversario",
+        "type": "Compuesto (Evento + Edad/Fecha)",
+        "description": "El patrón inconsciente de repetición del destino de un ancestro al alcanzar cierta fecha o ciclo de edad."
+      },
+      {
+        "name": "linea_afinidad",
+        "type": "Cualitativo / Lista",
+        "description": "La relación estructural e inconsciente que une a un individuo con un ancestro específico basada en la coincidencia de nombres o fechas de nacimiento/defunción (+/- 10 días)."
+      },
+      {
+        "name": "mandato_familiar",
+        "type": "Cualitativo / Texto",
+        "description": "Reglas silenciosas e imperativos morales transmitidos de generación en generación que restringen la autorrealización del individuo."
+      }
+    ],
+    "imports": [
+      "systems.Mente & Psique.Biodescodificación",
+      "systems.Síntesis & Estructuras.Numerología",
+      "systems.Simbólico & Oracular.Tarot"
+    ],
+    "relationships": [
+      {
+        "type": "outgoing",
+        "system": "Biodescodificación",
+        "label": "Trauma transgeneracional = Síntoma"
+      },
+      {
+        "type": "outgoing",
+        "system": "Numerología",
+        "label": "Repetición de números kármicos"
+      },
+      {
+        "type": "outgoing",
+        "system": "Tarot",
+        "label": "Proyección de arquetipos familiares"
+      }
+    ]
+  },
+  {
+    "name": "systems.Cuerpo & Energía.Reiki",
+    "displayName": "Reiki",
+    "id": "RE",
+    "category": "Cuerpo & Energía",
+    "docPath": "systems/22_reiki.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Tablas de sintonización de símbolos (Cho Ku Rei, Sei He Ki, Hon Sha Ze Sho Nen) en JSON + LLM Open Source para estructurar protocolos de sesión e intenciones",
+    "description": "El Reiki es un sistema de sanación espiritual y canalización de energía vital universal a través de la imposición de manos. Fue fundado en Japón a principios de la década de 1920 por el monje budista zen Mikao Usui tras una experiencia de iluminación mística (Satori) durante un ayuno de 21 días en el monte Kurama. La palabra Reiki se compone de Rei (universal, cosmos o espíritu) y Ki (energía vital, equivalente al Qi chino o Prana hindú). El sistema Usui se estructura en niveles de iniciación y se basa en el uso de símbolos sagrados para dirigir la energía, limpiar espacios e irradiar sanación a distancia.",
+    "inputs": [
+      {
+        "name": "posicion_manos_sesion",
+        "description": "Lista de zonas corporales donde se aplica la imposición de manos durante la terapia)."
+      },
+      {
+        "name": "simbolo_activo",
+        "description": "Cualitativo: Símbolo Reiki activado mediante visualización o trazado en el aire)."
+      },
+      {
+        "name": "intencion_sanacion",
+        "description": "Texto o afirmación mental: El propósito de la sesión, ej. sanación a distancia, desbloqueo emocional)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "nivel_iniciacion",
+        "type": "Cualitativo",
+        "description": "El grado de sintonización y capacidad del terapeuta para canalizar el flujo de Reiki."
+      },
+      {
+        "name": "simbolo_sagrado",
+        "type": "Cualitativo",
+        "description": "Llaves simbólicas y mantras para sintonizar frecuencias energéticas específicas."
+      },
+      {
+        "name": "cinco_principios (Gokai)",
+        "type": "Lista de Enunciados",
+        "description": "El código ético y la base espiritual del sistema Usui para mantener despejado el canal de energía."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Sistema de Chakras",
+        "label": "Imposición de manos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Mente & Psique.Teosofía",
+    "displayName": "Teosofía",
+    "id": "TE",
+    "category": "Mente & Psique",
+    "docPath": "systems/23_teosofia.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Test psicométrico de diagnóstico de Rayos en Python + RAG con la literatura de Helena Blavatsky y Alice Bailey sobre LLM Open Source",
+    "description": "La Teosofía es un sistema de filosofía esotérica y mística fundado en Nueva York en 1875 por la escritora ucraniana Helena Petrovna Blavatsky, junto con Henry Steel Olcott y William Quan Judge. El término proviene del griego theosophia (\"sabiduría divina\"). La teosofía propone que todas las religiones y filosofías son ramas de una verdad espiritual universal única. Entre sus modelos más estructurados se encuentra la descripción de los Siete Rayos (las siete energías fundamentales del cosmos que moldean la evolución humana) y los Siete Planos de Existencia (las dimensiones vibracionales del universo, desde el plano puramente espiritual hasta el físico).",
+    "inputs": [
+      {
+        "name": "fecha_nacimiento",
+        "description": "y hora_nacimiento (Utilizados en la teosofía posterior de Alice Bailey para calcular los rayos a través de la carta astrológica)."
+      },
+      {
+        "name": "observacion_temperamento",
+        "description": "Texto: Análisis de la vocación dominante y reacciones ante crisis de vida)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "rayo_personalidad",
+        "type": "Cualitativo",
+        "description": "La energía dominante que rige la personalidad externa en esta encarnación."
+      },
+      {
+        "name": "rayo_alma",
+        "type": "Cualitativo",
+        "description": "La energía que define el propósito superior y el aprendizaje evolutivo real de la conciencia."
+      },
+      {
+        "name": "plano_existencia",
+        "type": "Cualitativo",
+        "description": "Los 7 planos concéntricos de vibración cósmica en los que opera el ser humano a través de sus correspondientes cuerpos sutiles."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "Transmisores de rayos"
+      }
+    ]
+  },
+  {
+    "name": "systems.Mente & Psique.Antroposofía",
+    "displayName": "Antroposofía",
+    "id": "AN",
+    "category": "Mente & Psique",
+    "docPath": "systems/24_antroposofia.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "Algoritmo determinista de cálculo de septenios (ritmo de 7 años) + LLM Open Source para la síntesis de la tabla biográfica personal",
+    "description": "La Antroposofía es un sendero de conocimiento y movimiento filosófico fundado a principios del siglo XX por el pensador y científico austríaco Rudolf Steiner. Se separó de la Teosofía para fundar la Sociedad Antroposófica en 1912. La palabra deriva del griego anthropos (ser humano) y sophia (sabiduría), significando \"sabiduría del hombre\". Busca investigar el mundo espiritual a través del desarrollo del pensar científico y reflexivo. Sus dos modelos estructurales más populares son los Ciclos de Siete Años (Septenios) (las etapas de desarrollo biológico y anímico a lo largo de la vida) y la Tripartición Humana (la división funcional en los planos del pensar, el sentir y el querer/hacer).",
+    "inputs": [
+      {
+        "name": "edad_actual",
+        "description": "Cuantitativo: Edad exacta del consultante, utilizada para ubicar su septenio activo y la crisis biográfica asociada)."
+      },
+      {
+        "name": "historial_biografico",
+        "description": "Texto: Los eventos de vida organizados cronológicamente por septenios)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "septenio_activo",
+        "type": "Cualitativo",
+        "description": "La fase biográfica del desarrollo humano en la que se encuentra el individuo, cada una con un desafío de aprendizaje y desarrollo orgánico propio."
+      },
+      {
+        "name": "miembro_constitucion",
+        "type": "Cualitativo",
+        "description": "Los cuatro constituyentes esenciales del ser humano que maduran progresivamente en los tres primeros septenios."
+      },
+      {
+        "name": "actividad_tripartita",
+        "type": "Cualitativo / Proporción",
+        "description": "El equilibrio funcional de las tres fuerzas del alma y su manifestación en los sistemas orgánicos."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Astrología Occidental",
+        "label": "Ciclos planetarios"
+      },
+      {
+        "type": "incoming",
+        "system": "Alquimia y los Cuatro Elementos",
+        "label": "Sal/Mercurio/Azufre = Pensar/Sentir/Hacer"
+      }
+    ]
+  },
+  {
+    "name": "systems.Mente & Psique.Eneagrama Sufí",
+    "displayName": "Eneagrama Sufí",
+    "id": "ES",
+    "category": "Mente & Psique",
+    "docPath": "systems/25_eneagrama_sufi.md",
+    "nature": "Interpretativo",
+    "selfHostable": "Sí",
+    "openSourceTools": "LLM Open Source (Llama-3, Qwen-2.5, DeepSeek-R1) con RAG entrenado en el diagrama Sufí de Gurdjieff/Sufismo y los puntos de choque",
+    "description": "El Eneagrama Sufí describe las raíces espirituales, místicas y cosmológicas de la figura del Eneagrama. Aunque el Eneagrama de la Personalidad es moderno, su símbolo geométrico (un círculo que contiene un triángulo y una héxada) fue introducido en Occidente por George Gurdjieff en 1916 en sus grupos de trabajo, alegando haberlo aprendido de escuelas místicas sufíes (como la orden Naqshbandi) en Asia Central. Bajo el enfoque sufí y del Cuarto Camino, el Eneagrama es un símbolo del movimiento perpetuo del cosmos regido por dos leyes cósmicas: la Ley de Tres (creación) y la Ley de Siete (proceso/octava). Representa el mapa del desarrollo interior del alma y el flujo de energía divina a través del ser humano.",
+    "inputs": [
+      {
+        "name": "estado_presencia",
+        "description": "Cualitativo: Grado de autoconciencia o estado de vigilia del consultante, ej. dormido/mecanicismo, alerta/presencia)."
+      },
+      {
+        "name": "octava_etapa",
+        "description": "Cuantitativo/Cualitativo: El punto o paso en un proceso de desarrollo personal o proyecto que se quiere analizar bajo la Ley de Octavas)."
+      }
+    ],
+    "outputs": [
+      {
+        "name": "punto_eneagrama",
+        "type": "Cualitativo",
+        "description": "Los 9 portales de energía o cualidades del Absoluto (en el sufismo, los 9 nombres divinos o virtudes primordiales)."
+      },
+      {
+        "name": "flujo_hexada",
+        "type": "Lista de Transiciones",
+        "description": "El flujo dinámico de circulación interna de la energía vital en busca del equilibrio dinámico. Representa la Ley de Siete."
+      },
+      {
+        "name": "flujo_triangulo",
+        "type": "Lista de Transiciones",
+        "description": "La fuerza trinitaria de creación y autorrealización que conecta las tres fuerzas universales (Activa, Pasiva y Reconciliadora). Representa la Ley de Tres."
+      },
+      {
+        "name": "punto_choque (Shock Point)",
+        "type": "Cualitativo",
+        "description": "Puntos de desviación natural en la octava del desarrollo donde se requiere un \"choque consciente\" (esfuerzo voluntario) para no desviar la dirección original."
+      }
+    ],
+    "imports": [],
+    "relationships": [
+      {
+        "type": "incoming",
+        "system": "Eneagrama de la Personalidad",
+        "label": "Dinámica de movimientos"
+      }
+    ]
+  }
+]

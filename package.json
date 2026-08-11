@@ -1,0 +1,19 @@
+{
+  "name": "gurushaman-visualizacion",
+  "version": "1.0.0",
+  "description": "Visualizacion interactiva de relaciones cruzadas entre sistemas holisticos con D3.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "compile": "node scripts/parse_systems.js"
+  },
+  "keywords": [
+    "d3",
+    "edge-bundling",
+    "esoterism",
+    "holistic-systems",
+    "visualization"
+  ],
+  "author": "GuruShaman Team",
+  "license": "ISC"
+}
